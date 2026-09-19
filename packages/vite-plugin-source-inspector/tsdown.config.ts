@@ -1,7 +1,10 @@
 import { defineConfig } from '@internal/tsdown-config';
 
 export default defineConfig({
-  entry: 'src/index.ts',
+  // The browser runtime is a second entry rather than part of the plugin bundle: the
+  // plugin reads it off disk and serves it to the page, so it has to survive publishing
+  // as its own file next to `dist/index.js`.
+  entry: ['src/index.ts', 'src/client/runtime.ts'],
   dts: true,
   minify: false,
   clean: true,
