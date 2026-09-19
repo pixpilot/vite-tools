@@ -1,13 +1,23 @@
 {
-  "name": "pnpm-turbo-monorepo-template",
+  "name": "vite-tools",
   "private": true,
-  "packageManager": "pnpm@10.33.4",
+  "packageManager": "pnpm@10.34.5",
+  "prettier": "@internal/prettier-config",
+  "author": "Mo Doaie <m.doaie@hotmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/pixpilot/vite-tools",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pixpilot/vite-tools.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pixpilot/vite-tools/issues"
+  },
   "engines": {
     "node": ">=24.15.0",
     "pnpm": ">=9.6.0"
   },
   "scripts": {
-    "setup": "npx @pixpilot/scaffoldfy@latest --config https://unpkg.com/@pixpilot/scaffoldfy-configs@latest/workspace-initializer/scaffoldfy.json",
     "prepare": "husky",
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
@@ -30,29 +40,29 @@
     "deps:update": "npx taze -r -w && pnpm install",
     "deps:update:major": "npx taze major -r -w && pnpm install",
     "gen:package": "npx @pixpilot/scaffoldfy@latest --config ./generators/package/scaffoldfy.json",
-    "changeset": "changeset"
+    "changeset": "changeset",
+    "generate-packages-section": "node scripts/generate-packages-section.js"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.0",
-    "@commitlint/cli": "^21.0.0",
-    "@commitlint/config-conventional": "^21.0.0",
+    "@changesets/cli": "^2.31.1",
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.2",
     "@internal/prettier-config": "workspace:*",
     "@pixpilot/dev-config": "catalog:dev",
     "@pixpilot/workspace-package-generator": "^2.1.2",
-    "@turbo/gen": "^2.9.12",
+    "@turbo/gen": "^2.11.2",
     "@types/node": "catalog:dev",
     "@vitest/coverage-v8": "catalog:dev",
     "@vitest/ui": "catalog:dev",
     "eslint": "catalog:dev",
     "glob": "catalog:dev",
     "husky": "^9.1.7",
-    "lint-staged": "^17.0.3",
+    "lint-staged": "^17.5.1",
     "prettier": "catalog:dev",
     "rimraf": "^6.1.3",
-    "tsx": "^4.21.0",
-    "turbo": "^2.9.12",
+    "tsx": "^4.23.13",
+    "turbo": "^2.11.2",
     "typescript": "catalog:dev",
     "vitest": "catalog:dev"
-  },
-  "prettier": "@internal/prettier-config"
+  }
 }
