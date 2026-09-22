@@ -8,7 +8,7 @@ import { isAbsolute, relative, resolve, sep } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
-import { buildEditorArgs } from './editors.ts';
+import { buildSpawnPlan } from './editors.ts';
 import { instrument } from './instrument.ts';
 import { matchesFilter, resolveOptions } from './options.ts';
 
@@ -113,13 +113,17 @@ export function sourceInspectorPlugin(userOptions: SourceInspectorOptions = {}):
       return;
     }
 
-    const args = buildEditorArgs(options.editor, { file: resolvedFile, line, column });
-    log('opening editor', [options.editor.command, ...args].join(' '));
+    const plan = buildSpawnPlan(
+      options.editor,
+      { file: resolvedFile, line, column },
+      process.platform,
+    );
+    log('opening editor', [plan.command, ...plan.args].join(' '));
 
-    const child = spawn(options.editor.command, args, {
+    const child = spawn(plan.command, plan.args, {
       detached: true,
       stdio: 'ignore',
-      shell: useShell,
+      windowsVerbatimArguments: plan.windowsVerbatimArguments,
     });
     child.on('error', (error) => {
       console.error(

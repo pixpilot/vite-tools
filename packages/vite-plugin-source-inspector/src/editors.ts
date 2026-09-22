@@ -1,4 +1,5 @@
 import type { EditorCommand, EditorOption, KnownEditor } from './types.ts';
+import process from 'node:process';
 
 const gotoArgs = ['--goto', '{file}:{line}:{column}'];
 const jetBrainsArgs = ['--line', '{line}', '--column', '{column}', '{file}'];
@@ -55,4 +56,48 @@ export function buildEditorArgs(
       .replaceAll('{line}', String(location.line))
       .replaceAll('{column}', String(location.column)),
   );
+}
+
+/** What `spawn` needs in order to launch an editor on the current platform. */
+export interface SpawnPlan {
+  command: string;
+  args: string[];
+  windowsVerbatimArguments: boolean;
+}
+
+/**
+ * `cmd.exe` splits the line it is handed on whitespace, so every part has to carry its
+ * own quotes. A quote inside an argument is doubled, the way `cmd` expects it.
+ */
+function quoteForCmd(argument: string): string {
+  if (!/[\s"]/u.test(argument)) return argument;
+  return `"${argument.replaceAll('"', '""')}"`;
+}
+
+/**
+ * Turns a resolved editor into a spawnable command.
+ *
+ * Editors reach Windows as `.cmd` shims, which only run through `cmd.exe`. Node's
+ * `shell: true` gets us there, but it joins the arguments with a space and quotes none
+ * of them, so `C:\Users\Ada Lovelace\app\src\App.tsx:12:5` arrives as two arguments and
+ * the editor opens a blank window instead of the file. Build the line here instead,
+ * quote each part, and hand it over verbatim.
+ */
+export function buildSpawnPlan(
+  editor: EditorCommand,
+  location: SourceLocation,
+  platform: string,
+): SpawnPlan {
+  const args = buildEditorArgs(editor, location);
+  if (platform !== 'win32') {
+    return { command: editor.command, args, windowsVerbatimArguments: false };
+  }
+
+  const line = [editor.command, ...args].map(quoteForCmd).join(' ');
+  return {
+    command: process.env['ComSpec'] ?? 'cmd.exe',
+    // The outer quotes are the pair `/s` strips back off before running the line.
+    args: ['/d', '/s', '/c', `"${line}"`],
+    windowsVerbatimArguments: true,
+  };
 }

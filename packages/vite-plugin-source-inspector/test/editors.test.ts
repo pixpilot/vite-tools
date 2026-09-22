@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildEditorArgs, resolveEditor } from '../src/editors.ts';
+import { buildEditorArgs, buildSpawnPlan, resolveEditor } from '../src/editors.ts';
 
 const location = { file: '/project/src/App.tsx', line: 12, column: 3 };
 
@@ -54,5 +54,52 @@ describe('buildEditorArgs', () => {
       '--goto',
       '/project/src/App.tsx:12:3',
     ]);
+  });
+});
+
+describe('buildSpawnPlan', () => {
+  const windowsFile = String.raw`C:\Users\Ada\app\src\App.tsx`;
+  const spacedFile = String.raw`C:\Users\Ada Lovelace\my app\src\App.tsx`;
+
+  it('spawns the editor directly off Windows', () => {
+    expect(buildSpawnPlan(resolveEditor('code'), location, 'darwin')).toStrictEqual({
+      command: 'code',
+      args: ['--goto', '/project/src/App.tsx:12:3'],
+      windowsVerbatimArguments: false,
+    });
+  });
+
+  it('routes through cmd.exe on Windows so the .cmd shim resolves', () => {
+    const plan = buildSpawnPlan(
+      resolveEditor('code'),
+      { file: windowsFile, line: 12, column: 3 },
+      'win32',
+    );
+
+    expect(plan.windowsVerbatimArguments).toBe(true);
+    expect(plan.args.slice(0, 3)).toStrictEqual(['/d', '/s', '/c']);
+    expect(plan.args[3]).toBe(`"code --goto ${windowsFile}:12:3"`);
+  });
+
+  it('quotes a path containing spaces, which would otherwise split in two', () => {
+    const plan = buildSpawnPlan(
+      resolveEditor('code'),
+      { file: spacedFile, line: 12, column: 3 },
+      'win32',
+    );
+
+    expect(plan.args[3]).toBe(`"code --goto "${spacedFile}:12:3""`);
+  });
+
+  it('quotes a command whose own path contains spaces', () => {
+    const plan = buildSpawnPlan(
+      { command: String.raw`C:\Program Files\Microsoft VS Code\bin\code.cmd` },
+      { file: windowsFile, line: 12, column: 3 },
+      'win32',
+    );
+
+    expect(plan.args[3]).toBe(
+      `""C:\\Program Files\\Microsoft VS Code\\bin\\code.cmd" --goto ${windowsFile}:12:3"`,
+    );
   });
 });
