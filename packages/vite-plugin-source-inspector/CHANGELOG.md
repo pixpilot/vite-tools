@@ -1,5 +1,11 @@
 # @pixpilot/vite-plugin-source-inspector
 
+## 0.3.0
+
+### Minor Changes
+
+- implement buildSpawnPlan for editor launching
+
 ## 0.2.0
 
 ### Minor Changes
