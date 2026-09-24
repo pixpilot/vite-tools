@@ -7,8 +7,8 @@ settings:
 catalogs:
   dev:
     '@pixpilot/dev-config':
-      specifier: ^3.22.0
-      version: 3.22.0
+      specifier: ^3.22.1
+      version: 3.22.1
     '@vitest/coverage-v8':
       specifier: ^5.0.1
       version: 5.0.1
@@ -61,7 +61,7 @@ importers:
         version: link:tooling/prettier
       '@pixpilot/dev-config':
         specifier: catalog:dev
-        version: 3.22.0
+        version: 3.22.1
       '@pixpilot/workspace-package-generator':
         specifier: ^2.1.2
         version: 2.1.2
@@ -170,7 +170,7 @@ importers:
         version: link:../typescript
       '@pixpilot/dev-config':
         specifier: catalog:dev
-        version: 3.22.0
+        version: 3.22.1
       eslint:
         specifier: catalog:dev
         version: 10.11.0(jiti@2.6.1)
@@ -188,7 +188,7 @@ importers:
         version: link:../typescript
       '@pixpilot/dev-config':
         specifier: catalog:dev
-        version: 3.22.0
+        version: 3.22.1
 
   tooling/tsdown:
     dependencies:
@@ -207,7 +207,7 @@ importers:
         version: link:../typescript
       '@pixpilot/dev-config':
         specifier: catalog:dev
-        version: 3.22.0
+        version: 3.22.1
       '@types/node':
         specifier: ^26.6.2
         version: 26.6.2
@@ -222,7 +222,7 @@ importers:
     devDependencies:
       '@pixpilot/dev-config':
         specifier: catalog:dev
-        version: 3.22.0
+        version: 3.22.1
       '@types/node':
         specifier: ^26.6.2
         version: 26.6.2
@@ -1206,8 +1206,8 @@ packages:
       vue-eslint-parser:
         optional: true
 
-  '@pixpilot/dev-config@3.22.0':
-    resolution: {integrity: sha512-n8tx8Oz14I8Y3ugvngh8dTxqwVOsU0H0S5ygL1kd/fUf3UzVrIsmLgOfvVptYsCi4/2M7lxLXYw5B5qAAl3Y6Q==}
+  '@pixpilot/dev-config@3.22.1':
+    resolution: {integrity: sha512-/i3P8w+fk9WJ0+CXqdpihHDOQcG5NWejlWT9FPh5FXe0MJ3drBdDyP0g/AgcZbueDedhJdYcbkKCdUEyU0MEOw==}
 
   '@pixpilot/drizzle-config@0.3.0':
     resolution: {integrity: sha512-P8cFsG7zcGplAVA9M02N9wa+4ngmVoHESYl4JCIhEknwYSrJeR8co4jycuCjaN7NwTcHunMgTwlI418MOBujBg==}
@@ -4995,7 +4995,7 @@ snapshots:
       - typescript
       - vitest
 
-  '@pixpilot/dev-config@3.22.0': {}
+  '@pixpilot/dev-config@3.22.1': {}
 
   '@pixpilot/drizzle-config@0.3.0(eslint@10.11.0(jiti@2.6.1))':
     dependencies:
