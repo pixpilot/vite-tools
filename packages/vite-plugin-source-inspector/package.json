@@ -1,7 +1,7 @@
 {
   "name": "@pixpilot/vite-plugin-source-inspector",
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "packageManager": "pnpm@10.34.5",
   "description": "A Vite plugin that lets you inspect source locations and open them in your editor.",
   "author": "Mo Doaie <m.doaie@hotmail.com>",

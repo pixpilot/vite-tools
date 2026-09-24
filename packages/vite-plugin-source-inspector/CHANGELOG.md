@@ -1,5 +1,12 @@
 # @pixpilot/vite-plugin-source-inspector
 
+## 0.3.1
+
+### Patch Changes
+
+- change `typescript` to a peer dependency
+- 98863cb: Make `typescript` a peer dependency (`^5.0.0 || ^6.0.0`) instead of a direct dependency, so the plugin uses the host project's compiler rather than installing a second copy.
+
 ## 0.3.0
 
 ### Minor Changes
