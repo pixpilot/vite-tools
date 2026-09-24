@@ -50,10 +50,8 @@
     "format": "prettier --check . --ignore-path ../../.gitignore --ignore-path ../../.prettierignore"
   },
   "peerDependencies": {
+    "typescript": "^5.0.0 || ^6.0.0",
     "vite": "catalog:dev"
-  },
-  "dependencies": {
-    "typescript": "catalog:dev"
   },
   "devDependencies": {
     "@internal/eslint-config": "workspace:*",
@@ -68,6 +66,7 @@
     "jsdom": "catalog:dev",
     "prettier": "catalog:dev",
     "tsdown": "catalog:dev",
+    "typescript": "catalog:dev",
     "vite": "catalog:dev",
     "vitest": "catalog:dev"
   },

@@ -109,10 +109,6 @@ importers:
         version: 5.0.1(@types/node@26.6.2)(@vitest/coverage-v8@5.0.1)(@vitest/ui@5.0.1)(jsdom@29.1.1)(vite@7.3.6(@types/node@26.6.2)(jiti@2.6.1)(terser@5.43.1)(tsx@4.23.13)(yaml@2.9.1))
 
   packages/vite-plugin-source-inspector:
-    dependencies:
-      typescript:
-        specifier: catalog:dev
-        version: 6.0.3
     devDependencies:
       '@internal/eslint-config':
         specifier: workspace:*
@@ -150,6 +146,9 @@ importers:
       tsdown:
         specifier: catalog:dev
         version: 0.23.0(tsx@4.23.13)(typescript@6.0.3)(unrun@0.3.0(synckit@0.11.13))
+      typescript:
+        specifier: catalog:dev
+        version: 6.0.3
       vite:
         specifier: catalog:dev
         version: 7.3.6(@types/node@26.6.2)(jiti@2.6.1)(terser@5.43.1)(tsx@4.23.13)(yaml@2.9.1)

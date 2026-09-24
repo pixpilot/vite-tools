@@ -9,6 +9,9 @@ matching file directly from the browser during development.
 pnpm add -D @pixpilot/vite-plugin-source-inspector
 ```
 
+`typescript` (5.x or 6.x) is a peer dependency: the plugin parses JSX with your
+project's compiler rather than bundling its own.
+
 ## Usage
 
 Add the plugin to your Vite config:
